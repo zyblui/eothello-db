@@ -361,6 +361,9 @@ function getTable() {
     }
     return arr;
 }
+function interpolate(){
+    
+}
 function getRandomData(num) {
 
 }
