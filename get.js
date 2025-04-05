@@ -1,9 +1,9 @@
 let data = [];
 let regex = /server_game\.initializeServerGame\([\S\s]*?\)/;
-let pagesFetched=0
+let pagesFetched = 0
 function get(initialVal, num) {
-    pagesFetched++
-    let myRequest = new Request("https://www.eothello.com/game/" + initialVal)
+    pagesFetched++;
+    let myRequest = new Request("https://www.eothello.com/game/" + initialVal);
     fetch(myRequest)
         .then((response) => response.text())
         .then((response) => {
@@ -22,7 +22,7 @@ function get(initialVal, num) {
         });
 }
 function multiGet(initialVal, num) {
-    pagesFetched=0
+    pagesFetched = 0
     num /= 10;
     for (let i = 0; i < 10; i++) {
         get(initialVal - i * num, num);
