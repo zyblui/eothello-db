@@ -94,7 +94,7 @@ function discCount(currentBoard) {
 }
 let learnedPositions = 0
 function learn() {
-    learnedPositions = 0
+    learnedPositions = 0;
     for (let i of data) if (i.type == 1 || i.type == 0) {
         for (let j of i.moves) {
             pd(j);
@@ -117,198 +117,8 @@ function learn() {
         ]
         for (let j = 0; j < i.moves.length; j++) {
             pd(i.moves[j]);
-            setPatternEval(j, "corner33", Math.min(
-                getPatternNo(board[0][0], board[0][1], board[0][2], board[1][0], board[1][1], board[1][2], board[2][0], board[2][1], board[2][2]),
-                getPatternNo(board[0][0], board[1][0], board[2][0], board[0][1], board[1][1], board[2][1], board[0][2], board[1][2], board[2][2])
-            ), blackAdvantage)
-            setPatternEval(j, "corner33", Math.min(
-                getPatternNo(board[0][7], board[0][6], board[0][5], board[1][7], board[1][6], board[1][5], board[2][7], board[2][6], board[2][5]),
-                getPatternNo(board[0][7], board[1][7], board[2][7], board[0][6], board[1][6], board[2][6], board[0][5], board[1][5], board[2][5])
-            ), blackAdvantage)
-            setPatternEval(j, "corner33", Math.min(
-                getPatternNo(board[7][0], board[7][1], board[7][2], board[6][0], board[6][1], board[6][2], board[5][0], board[5][1], board[5][2]),
-                getPatternNo(board[7][0], board[6][0], board[5][0], board[7][1], board[6][1], board[5][1], board[7][2], board[6][2], board[5][2])
-            ), blackAdvantage)
-            setPatternEval(j, "corner33", Math.min(
-                getPatternNo(board[7][7], board[7][6], board[7][5], board[6][7], board[6][6], board[6][5], board[5][7], board[5][6], board[5][5]),
-                getPatternNo(board[7][7], board[6][7], board[5][7], board[7][6], board[6][6], board[5][6], board[7][5], board[6][5], board[5][5])
-            ), blackAdvantage)
-            setPatternEval(j, "corner52",
-                getPatternNo(board[0][0], board[0][1], board[0][2], board[0][3], board[0][4], board[1][0], board[1][1], board[1][2], board[1][3], board[1][4])
-                , blackAdvantage)
-            setPatternEval(j, "corner52",
-                getPatternNo(board[0][0], board[1][0], board[2][0], board[3][0], board[4][0], board[0][1], board[1][1], board[2][1], board[3][1], board[4][1])
-                , blackAdvantage)
-            setPatternEval(j, "corner52",
-                getPatternNo(board[7][0], board[7][1], board[7][2], board[7][3], board[7][4], board[6][0], board[6][1], board[6][2], board[6][3], board[6][4])
-                , blackAdvantage)
-            setPatternEval(j, "corner52",
-                getPatternNo(board[7][0], board[6][0], board[5][0], board[4][0], board[3][0], board[7][1], board[6][1], board[5][1], board[4][1], board[3][1])
-                , blackAdvantage)
-            setPatternEval(j, "corner52",
-                getPatternNo(board[0][7], board[0][6], board[0][5], board[0][4], board[0][3], board[1][7], board[1][6], board[1][5], board[1][4], board[1][3])
-                , blackAdvantage)
-            setPatternEval(j, "corner52",
-                getPatternNo(board[0][7], board[1][7], board[2][7], board[3][7], board[4][7], board[0][6], board[1][6], board[2][6], board[3][6], board[4][6])
-                , blackAdvantage)
-            setPatternEval(j, "corner52",
-                getPatternNo(board[7][7], board[6][7], board[5][7], board[4][7], board[3][7], board[7][6], board[6][6], board[5][6], board[4][6], board[3][6])
-                , blackAdvantage)
-            setPatternEval(j, "corner52",
-                getPatternNo(board[7][7], board[7][6], board[7][5], board[7][4], board[7][3], board[6][7], board[6][6], board[6][5], board[6][4], board[6][3])
-                , blackAdvantage)
-            setPatternEval(j, "row1", Math.min(
-                getPatternNo(board[0][0], board[0][1], board[0][2], board[0][3], board[0][4], board[0][5], board[0][6], board[0][7]),
-                getPatternNo(board[0][7], board[0][6], board[0][5], board[0][4], board[0][3], board[0][2], board[0][1], board[0][0])
-            ), blackAdvantage)
-            setPatternEval(j, "row1", Math.min(
-                getPatternNo(board[7][0], board[7][1], board[7][2], board[7][3], board[7][4], board[7][5], board[7][6], board[7][7]),
-                getPatternNo(board[7][7], board[7][6], board[7][5], board[7][4], board[7][3], board[7][2], board[7][1], board[7][0])
-            ), blackAdvantage)
-            setPatternEval(j, "row1", Math.min(
-                getPatternNo(board[0][0], board[1][0], board[2][0], board[3][0], board[4][0], board[5][0], board[6][0], board[7][0]),
-                getPatternNo(board[7][0], board[6][0], board[5][0], board[4][0], board[3][0], board[2][0], board[1][0], board[0][0])
-            ), blackAdvantage)
-            setPatternEval(j, "row1", Math.min(
-                getPatternNo(board[0][7], board[1][7], board[2][7], board[3][7], board[4][7], board[5][7], board[6][7], board[7][7]),
-                getPatternNo(board[7][7], board[6][7], board[5][7], board[4][7], board[3][7], board[2][7], board[1][7], board[0][7])
-            ), blackAdvantage)
-            setPatternEval(j, "row2", Math.min(
-                getPatternNo(board[1][0], board[1][1], board[1][2], board[1][3], board[1][4], board[1][5], board[1][6], board[1][7]),
-                getPatternNo(board[1][7], board[1][6], board[1][5], board[1][4], board[1][3], board[1][2], board[1][1], board[1][0])
-            ), blackAdvantage)
-            setPatternEval(j, "row2", Math.min(
-                getPatternNo(board[6][0], board[6][1], board[6][2], board[6][3], board[6][4], board[6][5], board[6][6], board[6][7]),
-                getPatternNo(board[6][7], board[6][6], board[6][5], board[6][4], board[6][3], board[6][2], board[6][1], board[6][0])
-            ), blackAdvantage)
-            setPatternEval(j, "row2", Math.min(
-                getPatternNo(board[0][1], board[1][1], board[2][1], board[3][1], board[4][1], board[5][1], board[6][1], board[7][1]),
-                getPatternNo(board[7][1], board[6][1], board[5][1], board[4][1], board[3][1], board[2][1], board[1][1], board[0][1])
-            ), blackAdvantage)
-            setPatternEval(j, "row2", Math.min(
-                getPatternNo(board[0][6], board[1][6], board[2][6], board[3][6], board[4][6], board[5][6], board[6][6], board[7][6]),
-                getPatternNo(board[7][6], board[6][6], board[5][6], board[4][6], board[3][6], board[2][6], board[1][6], board[0][6])
-            ), blackAdvantage)
-            setPatternEval(j, "row3", Math.min(
-                getPatternNo(board[2][0], board[2][1], board[2][2], board[2][3], board[2][4], board[2][5], board[2][6], board[2][7]),
-                getPatternNo(board[2][7], board[2][6], board[2][5], board[2][4], board[2][3], board[2][2], board[2][1], board[2][0])
-            ), blackAdvantage)
-            setPatternEval(j, "row3", Math.min(
-                getPatternNo(board[5][0], board[5][1], board[5][2], board[5][3], board[5][4], board[5][5], board[5][6], board[5][7]),
-                getPatternNo(board[5][7], board[5][6], board[5][5], board[5][4], board[5][3], board[5][2], board[5][1], board[5][0])
-            ), blackAdvantage)
-            setPatternEval(j, "row3", Math.min(
-                getPatternNo(board[0][2], board[1][2], board[2][2], board[3][2], board[4][2], board[5][2], board[6][2], board[7][2]),
-                getPatternNo(board[7][2], board[6][2], board[5][2], board[4][2], board[3][2], board[2][2], board[1][2], board[0][2])
-            ), blackAdvantage)
-            setPatternEval(j, "row3", Math.min(
-                getPatternNo(board[0][5], board[1][5], board[2][5], board[3][5], board[4][5], board[5][5], board[6][5], board[7][5]),
-                getPatternNo(board[7][5], board[6][5], board[5][5], board[4][5], board[3][5], board[2][5], board[1][5], board[0][5])
-            ), blackAdvantage)
-            setPatternEval(j, "row4", Math.min(
-                getPatternNo(board[3][0], board[3][1], board[3][2], board[3][3], board[3][4], board[3][5], board[3][6], board[3][7]),
-                getPatternNo(board[3][7], board[3][6], board[3][5], board[3][4], board[3][3], board[3][2], board[3][1], board[3][0])
-            ), blackAdvantage)
-            setPatternEval(j, "row4", Math.min(
-                getPatternNo(board[4][0], board[4][1], board[4][2], board[4][3], board[4][4], board[4][5], board[4][6], board[4][7]),
-                getPatternNo(board[4][7], board[4][6], board[4][5], board[4][4], board[4][3], board[4][2], board[4][1], board[4][0])
-            ), blackAdvantage)
-            setPatternEval(j, "row4", Math.min(
-                getPatternNo(board[0][3], board[1][3], board[2][3], board[3][3], board[4][3], board[5][3], board[6][3], board[7][3]),
-                getPatternNo(board[7][3], board[6][3], board[5][3], board[4][3], board[3][3], board[2][3], board[1][3], board[0][3])
-            ), blackAdvantage)
-            setPatternEval(j, "row4", Math.min(
-                getPatternNo(board[0][4], board[1][4], board[2][4], board[3][4], board[4][4], board[5][4], board[6][4], board[7][4]),
-                getPatternNo(board[7][4], board[6][4], board[5][4], board[4][4], board[3][4], board[2][4], board[1][4], board[0][4])
-            ), blackAdvantage)
-            setPatternEval(j, "edgex", Math.min(
-                getPatternNo(board[0][0], board[0][1], board[0][2], board[0][3], board[0][4], board[0][5], board[0][6], board[0][7], board[1][1], board[1][6]),
-                getPatternNo(board[0][7], board[0][6], board[0][5], board[0][4], board[0][3], board[0][2], board[0][1], board[0][0], board[1][6], board[1][1])
-            ), blackAdvantage)
-            setPatternEval(j, "edgex", Math.min(
-                getPatternNo(board[7][0], board[7][1], board[7][2], board[7][3], board[7][4], board[7][5], board[7][6], board[7][7], board[6][1], board[6][6]),
-                getPatternNo(board[7][7], board[7][6], board[7][5], board[7][4], board[7][3], board[7][2], board[7][1], board[7][0], board[6][6], board[6][1])
-            ), blackAdvantage)
-            setPatternEval(j, "edgex", Math.min(
-                getPatternNo(board[0][0], board[1][0], board[2][0], board[3][0], board[4][0], board[5][0], board[6][0], board[7][0], board[1][1], board[6][1]),
-                getPatternNo(board[7][0], board[6][0], board[5][0], board[4][0], board[3][0], board[2][0], board[1][0], board[0][0], board[6][1], board[1][1])
-            ), blackAdvantage)
-            setPatternEval(j, "edgex", Math.min(
-                getPatternNo(board[0][7], board[1][7], board[2][7], board[3][7], board[4][7], board[5][7], board[6][7], board[7][7], board[1][6], board[6][6]),
-                getPatternNo(board[7][7], board[6][7], board[5][7], board[4][7], board[3][7], board[2][7], board[1][7], board[0][7], board[6][6], board[1][6])
-            ), blackAdvantage)
-            setPatternEval(j, "diagonal4", Math.min(
-                getPatternNo(board[0][3], board[1][2], board[2][1], board[3][0]),
-                getPatternNo(board[3][0], board[2][1], board[1][2], board[0][3])
-            ), blackAdvantage)
-            setPatternEval(j, "diagonal4", Math.min(
-                getPatternNo(board[0][4], board[1][5], board[2][6], board[3][7]),
-                getPatternNo(board[3][7], board[2][6], board[1][5], board[0][4])
-            ), blackAdvantage)
-            setPatternEval(j, "diagonal4", Math.min(
-                getPatternNo(board[4][0], board[5][1], board[6][2], board[7][3]),
-                getPatternNo(board[7][3], board[6][2], board[5][1], board[4][0])
-            ), blackAdvantage)
-            setPatternEval(j, "diagonal4", Math.min(
-                getPatternNo(board[4][7], board[5][6], board[6][5], board[7][4]),
-                getPatternNo(board[7][4], board[6][5], board[5][6], board[4][7])
-            ), blackAdvantage)
-            setPatternEval(j, "diagonal5", Math.min(
-                getPatternNo(board[0][4], board[1][3], board[2][2], board[3][1], board[4][0]),
-                getPatternNo(board[4][0], board[3][1], board[2][2], board[1][3], board[0][4])
-            ), blackAdvantage)
-            setPatternEval(j, "diagonal5", Math.min(
-                getPatternNo(board[7][4], board[6][3], board[5][2], board[4][1], board[3][0]),
-                getPatternNo(board[3][0], board[4][1], board[5][2], board[6][3], board[7][4])
-            ), blackAdvantage)
-            setPatternEval(j, "diagonal5", Math.min(
-                getPatternNo(board[0][3], board[1][4], board[2][5], board[3][6], board[4][7]),
-                getPatternNo(board[4][7], board[3][6], board[2][5], board[1][4], board[0][3])
-            ), blackAdvantage)
-            setPatternEval(j, "diagonal5", Math.min(
-                getPatternNo(board[7][3], board[6][4], board[5][5], board[4][6], board[3][7]),
-                getPatternNo(board[3][7], board[4][6], board[5][5], board[6][4], board[7][3])
-            ), blackAdvantage)
-            setPatternEval(j, "diagonal6", Math.min(
-                getPatternNo(board[0][5], board[1][4], board[2][3], board[3][2], board[4][1], board[5][0]),
-                getPatternNo(board[5][0], board[4][1], board[3][2], board[2][3], board[1][4], board[0][5])
-            ), blackAdvantage)
-            setPatternEval(j, "diagonal6", Math.min(
-                getPatternNo(board[0][2], board[1][3], board[2][4], board[3][5], board[4][6], board[5][7]),
-                getPatternNo(board[2][0], board[3][1], board[4][2], board[5][3], board[6][4], board[7][5])
-            ), blackAdvantage)
-            setPatternEval(j, "diagonal6", Math.min(
-                getPatternNo(board[7][5], board[6][4], board[5][3], board[4][2], board[3][1], board[2][0]),
-                getPatternNo(board[5][7], board[4][6], board[3][5], board[2][4], board[1][3], board[0][2])
-            ), blackAdvantage)
-            setPatternEval(j, "diagonal6", Math.min(
-                getPatternNo(board[7][2], board[6][3], board[5][4], board[4][5], board[3][6], board[2][7]),
-                getPatternNo(board[2][7], board[3][6], board[4][5], board[5][4], board[6][3], board[7][2])
-            ), blackAdvantage)
-            setPatternEval(j, "diagonal7", Math.min(
-                getPatternNo(board[0][6], board[1][5], board[2][4], board[3][3], board[4][2], board[5][1], board[6][0]),
-                getPatternNo(board[6][0], board[5][1], board[4][2], board[3][3], board[2][4], board[1][5], board[0][6])
-            ), blackAdvantage)
-            setPatternEval(j, "diagonal7", Math.min(
-                getPatternNo(board[0][1], board[1][2], board[2][3], board[3][4], board[4][5], board[5][6], board[6][7]),
-                getPatternNo(board[1][0], board[2][1], board[3][2], board[4][3], board[5][4], board[6][5], board[7][6])
-            ), blackAdvantage)
-            setPatternEval(j, "diagonal7", Math.min(
-                getPatternNo(board[7][6], board[6][5], board[5][4], board[4][3], board[3][2], board[2][1], board[1][0]),
-                getPatternNo(board[6][7], board[5][6], board[4][5], board[3][4], board[2][3], board[1][2], board[0][1])
-            ), blackAdvantage)
-            setPatternEval(j, "diagonal7", Math.min(
-                getPatternNo(board[7][1], board[6][2], board[5][3], board[4][4], board[3][5], board[2][6], board[1][7]),
-                getPatternNo(board[1][7], board[2][6], board[3][5], board[4][4], board[5][3], board[6][2], board[7][1])
-            ), blackAdvantage)
-            setPatternEval(j, "diagonal8", Math.min(
-                getPatternNo(board[0][0], board[1][1], board[2][2], board[3][3], board[4][4], board[5][5], board[6][6], board[7][7]),
-                getPatternNo(board[7][7], board[6][6], board[5][5], board[4][4], board[3][3], board[2][2], board[1][1], board[0][0])
-            ), blackAdvantage)
-            setPatternEval(j, "diagonal8", Math.min(
-                getPatternNo(board[0][7], board[1][6], board[2][5], board[3][4], board[4][3], board[5][2], board[6][1], board[7][0]),
-                getPatternNo(board[7][0], board[6][1], board[5][2], board[4][3], board[3][4], board[2][5], board[1][6], board[0][7])
-            ), blackAdvantage)
+            multiSet(j, blackAdvantage, 1);
+            multiSet(j, blackAdvantage, -1);
         }
         playerColor = 1;
         board = [
@@ -323,6 +133,200 @@ function learn() {
         ]
         learnedPositions++;
     }
+}
+function multiSet(j, evaluation, multiplier) {
+    setPatternEval(j, "corner33", Math.min(
+        getPatternNo(board[0][0] * multiplier, board[0][1] * multiplier, board[0][2] * multiplier, board[1][0] * multiplier, board[1][1] * multiplier, board[1][2] * multiplier, board[2][0] * multiplier, board[2][1] * multiplier, board[2][2] * multiplier),
+        getPatternNo(board[0][0] * multiplier, board[1][0] * multiplier, board[2][0] * multiplier, board[0][1] * multiplier, board[1][1] * multiplier, board[2][1] * multiplier, board[0][2] * multiplier, board[1][2] * multiplier, board[2][2] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "corner33", Math.min(
+        getPatternNo(board[0][7] * multiplier, board[0][6] * multiplier, board[0][5] * multiplier, board[1][7] * multiplier, board[1][6] * multiplier, board[1][5] * multiplier, board[2][7] * multiplier, board[2][6] * multiplier, board[2][5] * multiplier),
+        getPatternNo(board[0][7] * multiplier, board[1][7] * multiplier, board[2][7] * multiplier, board[0][6] * multiplier, board[1][6] * multiplier, board[2][6] * multiplier, board[0][5] * multiplier, board[1][5] * multiplier, board[2][5] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "corner33", Math.min(
+        getPatternNo(board[7][0] * multiplier, board[7][1] * multiplier, board[7][2] * multiplier, board[6][0] * multiplier, board[6][1] * multiplier, board[6][2] * multiplier, board[5][0] * multiplier, board[5][1] * multiplier, board[5][2] * multiplier),
+        getPatternNo(board[7][0] * multiplier, board[6][0] * multiplier, board[5][0] * multiplier, board[7][1] * multiplier, board[6][1] * multiplier, board[5][1] * multiplier, board[7][2] * multiplier, board[6][2] * multiplier, board[5][2] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "corner33", Math.min(
+        getPatternNo(board[7][7] * multiplier, board[7][6] * multiplier, board[7][5] * multiplier, board[6][7] * multiplier, board[6][6] * multiplier, board[6][5] * multiplier, board[5][7] * multiplier, board[5][6] * multiplier, board[5][5] * multiplier),
+        getPatternNo(board[7][7] * multiplier, board[6][7] * multiplier, board[5][7] * multiplier, board[7][6] * multiplier, board[6][6] * multiplier, board[5][6] * multiplier, board[7][5] * multiplier, board[6][5] * multiplier, board[5][5] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "corner52",
+        getPatternNo(board[0][0] * multiplier, board[0][1] * multiplier, board[0][2] * multiplier, board[0][3] * multiplier, board[0][4] * multiplier, board[1][0] * multiplier, board[1][1] * multiplier, board[1][2] * multiplier, board[1][3] * multiplier, board[1][4] * multiplier)
+        , evaluation * multiplier)
+    setPatternEval(j, "corner52",
+        getPatternNo(board[0][0] * multiplier, board[1][0] * multiplier, board[2][0] * multiplier, board[3][0] * multiplier, board[4][0] * multiplier, board[0][1] * multiplier, board[1][1] * multiplier, board[2][1] * multiplier, board[3][1] * multiplier, board[4][1] * multiplier)
+        , evaluation * multiplier)
+    setPatternEval(j, "corner52",
+        getPatternNo(board[7][0] * multiplier, board[7][1] * multiplier, board[7][2] * multiplier, board[7][3] * multiplier, board[7][4] * multiplier, board[6][0] * multiplier, board[6][1] * multiplier, board[6][2] * multiplier, board[6][3] * multiplier, board[6][4] * multiplier)
+        , evaluation * multiplier)
+    setPatternEval(j, "corner52",
+        getPatternNo(board[7][0] * multiplier, board[6][0] * multiplier, board[5][0] * multiplier, board[4][0] * multiplier, board[3][0] * multiplier, board[7][1] * multiplier, board[6][1] * multiplier, board[5][1] * multiplier, board[4][1] * multiplier, board[3][1] * multiplier)
+        , evaluation * multiplier)
+    setPatternEval(j, "corner52",
+        getPatternNo(board[0][7] * multiplier, board[0][6] * multiplier, board[0][5] * multiplier, board[0][4] * multiplier, board[0][3] * multiplier, board[1][7] * multiplier, board[1][6] * multiplier, board[1][5] * multiplier, board[1][4] * multiplier, board[1][3] * multiplier)
+        , evaluation * multiplier)
+    setPatternEval(j, "corner52",
+        getPatternNo(board[0][7] * multiplier, board[1][7] * multiplier, board[2][7] * multiplier, board[3][7] * multiplier, board[4][7] * multiplier, board[0][6] * multiplier, board[1][6] * multiplier, board[2][6] * multiplier, board[3][6] * multiplier, board[4][6] * multiplier)
+        , evaluation * multiplier)
+    setPatternEval(j, "corner52",
+        getPatternNo(board[7][7] * multiplier, board[6][7] * multiplier, board[5][7] * multiplier, board[4][7] * multiplier, board[3][7] * multiplier, board[7][6] * multiplier, board[6][6] * multiplier, board[5][6] * multiplier, board[4][6] * multiplier, board[3][6] * multiplier)
+        , evaluation * multiplier)
+    setPatternEval(j, "corner52",
+        getPatternNo(board[7][7] * multiplier, board[7][6] * multiplier, board[7][5] * multiplier, board[7][4] * multiplier, board[7][3] * multiplier, board[6][7] * multiplier, board[6][6] * multiplier, board[6][5] * multiplier, board[6][4] * multiplier, board[6][3] * multiplier)
+        , evaluation * multiplier)
+    setPatternEval(j, "row1", Math.min(
+        getPatternNo(board[0][0] * multiplier, board[0][1] * multiplier, board[0][2] * multiplier, board[0][3] * multiplier, board[0][4] * multiplier, board[0][5] * multiplier, board[0][6] * multiplier, board[0][7] * multiplier),
+        getPatternNo(board[0][7] * multiplier, board[0][6] * multiplier, board[0][5] * multiplier, board[0][4] * multiplier, board[0][3] * multiplier, board[0][2] * multiplier, board[0][1] * multiplier, board[0][0] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "row1", Math.min(
+        getPatternNo(board[7][0] * multiplier, board[7][1] * multiplier, board[7][2] * multiplier, board[7][3] * multiplier, board[7][4] * multiplier, board[7][5] * multiplier, board[7][6] * multiplier, board[7][7] * multiplier),
+        getPatternNo(board[7][7] * multiplier, board[7][6] * multiplier, board[7][5] * multiplier, board[7][4] * multiplier, board[7][3] * multiplier, board[7][2] * multiplier, board[7][1] * multiplier, board[7][0] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "row1", Math.min(
+        getPatternNo(board[0][0] * multiplier, board[1][0] * multiplier, board[2][0] * multiplier, board[3][0] * multiplier, board[4][0] * multiplier, board[5][0] * multiplier, board[6][0] * multiplier, board[7][0] * multiplier),
+        getPatternNo(board[7][0] * multiplier, board[6][0] * multiplier, board[5][0] * multiplier, board[4][0] * multiplier, board[3][0] * multiplier, board[2][0] * multiplier, board[1][0] * multiplier, board[0][0] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "row1", Math.min(
+        getPatternNo(board[0][7] * multiplier, board[1][7] * multiplier, board[2][7] * multiplier, board[3][7] * multiplier, board[4][7] * multiplier, board[5][7] * multiplier, board[6][7] * multiplier, board[7][7] * multiplier),
+        getPatternNo(board[7][7] * multiplier, board[6][7] * multiplier, board[5][7] * multiplier, board[4][7] * multiplier, board[3][7] * multiplier, board[2][7] * multiplier, board[1][7] * multiplier, board[0][7] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "row2", Math.min(
+        getPatternNo(board[1][0] * multiplier, board[1][1] * multiplier, board[1][2] * multiplier, board[1][3] * multiplier, board[1][4] * multiplier, board[1][5] * multiplier, board[1][6] * multiplier, board[1][7] * multiplier),
+        getPatternNo(board[1][7] * multiplier, board[1][6] * multiplier, board[1][5] * multiplier, board[1][4] * multiplier, board[1][3] * multiplier, board[1][2] * multiplier, board[1][1] * multiplier, board[1][0] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "row2", Math.min(
+        getPatternNo(board[6][0] * multiplier, board[6][1] * multiplier, board[6][2] * multiplier, board[6][3] * multiplier, board[6][4] * multiplier, board[6][5] * multiplier, board[6][6] * multiplier, board[6][7] * multiplier),
+        getPatternNo(board[6][7] * multiplier, board[6][6] * multiplier, board[6][5] * multiplier, board[6][4] * multiplier, board[6][3] * multiplier, board[6][2] * multiplier, board[6][1] * multiplier, board[6][0] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "row2", Math.min(
+        getPatternNo(board[0][1] * multiplier, board[1][1] * multiplier, board[2][1] * multiplier, board[3][1] * multiplier, board[4][1] * multiplier, board[5][1] * multiplier, board[6][1] * multiplier, board[7][1] * multiplier),
+        getPatternNo(board[7][1] * multiplier, board[6][1] * multiplier, board[5][1] * multiplier, board[4][1] * multiplier, board[3][1] * multiplier, board[2][1] * multiplier, board[1][1] * multiplier, board[0][1] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "row2", Math.min(
+        getPatternNo(board[0][6] * multiplier, board[1][6] * multiplier, board[2][6] * multiplier, board[3][6] * multiplier, board[4][6] * multiplier, board[5][6] * multiplier, board[6][6] * multiplier, board[7][6] * multiplier),
+        getPatternNo(board[7][6] * multiplier, board[6][6] * multiplier, board[5][6] * multiplier, board[4][6] * multiplier, board[3][6] * multiplier, board[2][6] * multiplier, board[1][6] * multiplier, board[0][6] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "row3", Math.min(
+        getPatternNo(board[2][0] * multiplier, board[2][1] * multiplier, board[2][2] * multiplier, board[2][3] * multiplier, board[2][4] * multiplier, board[2][5] * multiplier, board[2][6] * multiplier, board[2][7] * multiplier),
+        getPatternNo(board[2][7] * multiplier, board[2][6] * multiplier, board[2][5] * multiplier, board[2][4] * multiplier, board[2][3] * multiplier, board[2][2] * multiplier, board[2][1] * multiplier, board[2][0] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "row3", Math.min(
+        getPatternNo(board[5][0] * multiplier, board[5][1] * multiplier, board[5][2] * multiplier, board[5][3] * multiplier, board[5][4] * multiplier, board[5][5] * multiplier, board[5][6] * multiplier, board[5][7] * multiplier),
+        getPatternNo(board[5][7] * multiplier, board[5][6] * multiplier, board[5][5] * multiplier, board[5][4] * multiplier, board[5][3] * multiplier, board[5][2] * multiplier, board[5][1] * multiplier, board[5][0] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "row3", Math.min(
+        getPatternNo(board[0][2] * multiplier, board[1][2] * multiplier, board[2][2] * multiplier, board[3][2] * multiplier, board[4][2] * multiplier, board[5][2] * multiplier, board[6][2] * multiplier, board[7][2] * multiplier),
+        getPatternNo(board[7][2] * multiplier, board[6][2] * multiplier, board[5][2] * multiplier, board[4][2] * multiplier, board[3][2] * multiplier, board[2][2] * multiplier, board[1][2] * multiplier, board[0][2] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "row3", Math.min(
+        getPatternNo(board[0][5] * multiplier, board[1][5] * multiplier, board[2][5] * multiplier, board[3][5] * multiplier, board[4][5] * multiplier, board[5][5] * multiplier, board[6][5] * multiplier, board[7][5] * multiplier),
+        getPatternNo(board[7][5] * multiplier, board[6][5] * multiplier, board[5][5] * multiplier, board[4][5] * multiplier, board[3][5] * multiplier, board[2][5] * multiplier, board[1][5] * multiplier, board[0][5] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "row4", Math.min(
+        getPatternNo(board[3][0] * multiplier, board[3][1] * multiplier, board[3][2] * multiplier, board[3][3] * multiplier, board[3][4] * multiplier, board[3][5] * multiplier, board[3][6] * multiplier, board[3][7] * multiplier),
+        getPatternNo(board[3][7] * multiplier, board[3][6] * multiplier, board[3][5] * multiplier, board[3][4] * multiplier, board[3][3] * multiplier, board[3][2] * multiplier, board[3][1] * multiplier, board[3][0] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "row4", Math.min(
+        getPatternNo(board[4][0] * multiplier, board[4][1] * multiplier, board[4][2] * multiplier, board[4][3] * multiplier, board[4][4] * multiplier, board[4][5] * multiplier, board[4][6] * multiplier, board[4][7] * multiplier),
+        getPatternNo(board[4][7] * multiplier, board[4][6] * multiplier, board[4][5] * multiplier, board[4][4] * multiplier, board[4][3] * multiplier, board[4][2] * multiplier, board[4][1] * multiplier, board[4][0] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "row4", Math.min(
+        getPatternNo(board[0][3] * multiplier, board[1][3] * multiplier, board[2][3] * multiplier, board[3][3] * multiplier, board[4][3] * multiplier, board[5][3] * multiplier, board[6][3] * multiplier, board[7][3] * multiplier),
+        getPatternNo(board[7][3] * multiplier, board[6][3] * multiplier, board[5][3] * multiplier, board[4][3] * multiplier, board[3][3] * multiplier, board[2][3] * multiplier, board[1][3] * multiplier, board[0][3] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "row4", Math.min(
+        getPatternNo(board[0][4] * multiplier, board[1][4] * multiplier, board[2][4] * multiplier, board[3][4] * multiplier, board[4][4] * multiplier, board[5][4] * multiplier, board[6][4] * multiplier, board[7][4] * multiplier),
+        getPatternNo(board[7][4] * multiplier, board[6][4] * multiplier, board[5][4] * multiplier, board[4][4] * multiplier, board[3][4] * multiplier, board[2][4] * multiplier, board[1][4] * multiplier, board[0][4] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "edgex", Math.min(
+        getPatternNo(board[0][0] * multiplier, board[0][1] * multiplier, board[0][2] * multiplier, board[0][3] * multiplier, board[0][4] * multiplier, board[0][5] * multiplier, board[0][6] * multiplier, board[0][7] * multiplier, board[1][1] * multiplier, board[1][6] * multiplier),
+        getPatternNo(board[0][7] * multiplier, board[0][6] * multiplier, board[0][5] * multiplier, board[0][4] * multiplier, board[0][3] * multiplier, board[0][2] * multiplier, board[0][1] * multiplier, board[0][0] * multiplier, board[1][6] * multiplier, board[1][1] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "edgex", Math.min(
+        getPatternNo(board[7][0] * multiplier, board[7][1] * multiplier, board[7][2] * multiplier, board[7][3] * multiplier, board[7][4] * multiplier, board[7][5] * multiplier, board[7][6] * multiplier, board[7][7] * multiplier, board[6][1] * multiplier, board[6][6] * multiplier),
+        getPatternNo(board[7][7] * multiplier, board[7][6] * multiplier, board[7][5] * multiplier, board[7][4] * multiplier, board[7][3] * multiplier, board[7][2] * multiplier, board[7][1] * multiplier, board[7][0] * multiplier, board[6][6] * multiplier, board[6][1] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "edgex", Math.min(
+        getPatternNo(board[0][0] * multiplier, board[1][0] * multiplier, board[2][0] * multiplier, board[3][0] * multiplier, board[4][0] * multiplier, board[5][0] * multiplier, board[6][0] * multiplier, board[7][0] * multiplier, board[1][1] * multiplier, board[6][1] * multiplier),
+        getPatternNo(board[7][0] * multiplier, board[6][0] * multiplier, board[5][0] * multiplier, board[4][0] * multiplier, board[3][0] * multiplier, board[2][0] * multiplier, board[1][0] * multiplier, board[0][0] * multiplier, board[6][1] * multiplier, board[1][1] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "edgex", Math.min(
+        getPatternNo(board[0][7] * multiplier, board[1][7] * multiplier, board[2][7] * multiplier, board[3][7] * multiplier, board[4][7] * multiplier, board[5][7] * multiplier, board[6][7] * multiplier, board[7][7] * multiplier, board[1][6] * multiplier, board[6][6] * multiplier),
+        getPatternNo(board[7][7] * multiplier, board[6][7] * multiplier, board[5][7] * multiplier, board[4][7] * multiplier, board[3][7] * multiplier, board[2][7] * multiplier, board[1][7] * multiplier, board[0][7] * multiplier, board[6][6] * multiplier, board[1][6] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "diagonal4", Math.min(
+        getPatternNo(board[0][3] * multiplier, board[1][2] * multiplier, board[2][1] * multiplier, board[3][0] * multiplier),
+        getPatternNo(board[3][0] * multiplier, board[2][1] * multiplier, board[1][2] * multiplier, board[0][3] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "diagonal4", Math.min(
+        getPatternNo(board[0][4] * multiplier, board[1][5] * multiplier, board[2][6] * multiplier, board[3][7] * multiplier),
+        getPatternNo(board[3][7] * multiplier, board[2][6] * multiplier, board[1][5] * multiplier, board[0][4] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "diagonal4", Math.min(
+        getPatternNo(board[4][0] * multiplier, board[5][1] * multiplier, board[6][2] * multiplier, board[7][3] * multiplier),
+        getPatternNo(board[7][3] * multiplier, board[6][2] * multiplier, board[5][1] * multiplier, board[4][0] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "diagonal4", Math.min(
+        getPatternNo(board[4][7] * multiplier, board[5][6] * multiplier, board[6][5] * multiplier, board[7][4] * multiplier),
+        getPatternNo(board[7][4] * multiplier, board[6][5] * multiplier, board[5][6] * multiplier, board[4][7] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "diagonal5", Math.min(
+        getPatternNo(board[0][4] * multiplier, board[1][3] * multiplier, board[2][2] * multiplier, board[3][1] * multiplier, board[4][0] * multiplier),
+        getPatternNo(board[4][0] * multiplier, board[3][1] * multiplier, board[2][2] * multiplier, board[1][3] * multiplier, board[0][4] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "diagonal5", Math.min(
+        getPatternNo(board[7][4] * multiplier, board[6][3] * multiplier, board[5][2] * multiplier, board[4][1] * multiplier, board[3][0] * multiplier),
+        getPatternNo(board[3][0] * multiplier, board[4][1] * multiplier, board[5][2] * multiplier, board[6][3] * multiplier, board[7][4] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "diagonal5", Math.min(
+        getPatternNo(board[0][3] * multiplier, board[1][4] * multiplier, board[2][5] * multiplier, board[3][6] * multiplier, board[4][7] * multiplier),
+        getPatternNo(board[4][7] * multiplier, board[3][6] * multiplier, board[2][5] * multiplier, board[1][4] * multiplier, board[0][3] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "diagonal5", Math.min(
+        getPatternNo(board[7][3] * multiplier, board[6][4] * multiplier, board[5][5] * multiplier, board[4][6] * multiplier, board[3][7] * multiplier),
+        getPatternNo(board[3][7] * multiplier, board[4][6] * multiplier, board[5][5] * multiplier, board[6][4] * multiplier, board[7][3] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "diagonal6", Math.min(
+        getPatternNo(board[0][5] * multiplier, board[1][4] * multiplier, board[2][3] * multiplier, board[3][2] * multiplier, board[4][1] * multiplier, board[5][0] * multiplier),
+        getPatternNo(board[5][0] * multiplier, board[4][1] * multiplier, board[3][2] * multiplier, board[2][3] * multiplier, board[1][4] * multiplier, board[0][5] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "diagonal6", Math.min(
+        getPatternNo(board[0][2] * multiplier, board[1][3] * multiplier, board[2][4] * multiplier, board[3][5] * multiplier, board[4][6] * multiplier, board[5][7] * multiplier),
+        getPatternNo(board[2][0] * multiplier, board[3][1] * multiplier, board[4][2] * multiplier, board[5][3] * multiplier, board[6][4] * multiplier, board[7][5] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "diagonal6", Math.min(
+        getPatternNo(board[7][5] * multiplier, board[6][4] * multiplier, board[5][3] * multiplier, board[4][2] * multiplier, board[3][1] * multiplier, board[2][0] * multiplier),
+        getPatternNo(board[5][7] * multiplier, board[4][6] * multiplier, board[3][5] * multiplier, board[2][4] * multiplier, board[1][3] * multiplier, board[0][2] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "diagonal6", Math.min(
+        getPatternNo(board[7][2] * multiplier, board[6][3] * multiplier, board[5][4] * multiplier, board[4][5] * multiplier, board[3][6] * multiplier, board[2][7] * multiplier),
+        getPatternNo(board[2][7] * multiplier, board[3][6] * multiplier, board[4][5] * multiplier, board[5][4] * multiplier, board[6][3] * multiplier, board[7][2] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "diagonal7", Math.min(
+        getPatternNo(board[0][6] * multiplier, board[1][5] * multiplier, board[2][4] * multiplier, board[3][3] * multiplier, board[4][2] * multiplier, board[5][1] * multiplier, board[6][0] * multiplier),
+        getPatternNo(board[6][0] * multiplier, board[5][1] * multiplier, board[4][2] * multiplier, board[3][3] * multiplier, board[2][4] * multiplier, board[1][5] * multiplier, board[0][6] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "diagonal7", Math.min(
+        getPatternNo(board[0][1] * multiplier, board[1][2] * multiplier, board[2][3] * multiplier, board[3][4] * multiplier, board[4][5] * multiplier, board[5][6] * multiplier, board[6][7] * multiplier),
+        getPatternNo(board[1][0] * multiplier, board[2][1] * multiplier, board[3][2] * multiplier, board[4][3] * multiplier, board[5][4] * multiplier, board[6][5] * multiplier, board[7][6] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "diagonal7", Math.min(
+        getPatternNo(board[7][6] * multiplier, board[6][5] * multiplier, board[5][4] * multiplier, board[4][3] * multiplier, board[3][2] * multiplier, board[2][1] * multiplier, board[1][0] * multiplier),
+        getPatternNo(board[6][7] * multiplier, board[5][6] * multiplier, board[4][5] * multiplier, board[3][4] * multiplier, board[2][3] * multiplier, board[1][2] * multiplier, board[0][1] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "diagonal7", Math.min(
+        getPatternNo(board[7][1] * multiplier, board[6][2] * multiplier, board[5][3] * multiplier, board[4][4] * multiplier, board[3][5] * multiplier, board[2][6] * multiplier, board[1][7] * multiplier),
+        getPatternNo(board[1][7] * multiplier, board[2][6] * multiplier, board[3][5] * multiplier, board[4][4] * multiplier, board[5][3] * multiplier, board[6][2] * multiplier, board[7][1] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "diagonal8", Math.min(
+        getPatternNo(board[0][0] * multiplier, board[1][1] * multiplier, board[2][2] * multiplier, board[3][3] * multiplier, board[4][4] * multiplier, board[5][5] * multiplier, board[6][6] * multiplier, board[7][7] * multiplier),
+        getPatternNo(board[7][7] * multiplier, board[6][6] * multiplier, board[5][5] * multiplier, board[4][4] * multiplier, board[3][3] * multiplier, board[2][2] * multiplier, board[1][1] * multiplier, board[0][0] * multiplier)
+    ), evaluation * multiplier)
+    setPatternEval(j, "diagonal8", Math.min(
+        getPatternNo(board[0][7] * multiplier, board[1][6] * multiplier, board[2][5] * multiplier, board[3][4] * multiplier, board[4][3] * multiplier, board[5][2] * multiplier, board[6][1] * multiplier, board[7][0] * multiplier),
+        getPatternNo(board[7][0] * multiplier, board[6][1] * multiplier, board[5][2] * multiplier, board[4][3] * multiplier, board[3][4] * multiplier, board[2][5] * multiplier, board[1][6] * multiplier, board[0][7] * multiplier)
+    ), evaluation * multiplier)
 }
 function getPatternNo() {
     let no = 0;
@@ -357,6 +361,6 @@ function getTable() {
     }
     return arr;
 }
-function getRandomData(num){
-    
+function getRandomData(num) {
+
 }

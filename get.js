@@ -22,7 +22,7 @@ function get(initialVal, num) {
         });
 }
 function multiGet(initialVal, num) {
-    pagesFetched = 0
+    pagesFetched = 0;
     num /= 10;
     for (let i = 0; i < 10; i++) {
         get(initialVal - i * num, num);
