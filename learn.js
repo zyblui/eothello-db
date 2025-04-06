@@ -361,8 +361,47 @@ function getTable() {
     }
     return arr;
 }
-function interpolate(){
-    
+function interpolate() {
+    let arr = JSON.parse(JSON.stringify(patternTable));
+    for (let i of arr) {
+        for (let j in i) {
+            for (let k = 0; k < i[j].length; k++) {
+                if (i[j][k]) {
+                    i[j][k] = i[j][k][0]
+                } else {
+                    i[j][k] = null
+                }
+            }
+        }
+    }
+    let patternNames = ["corner33", "corner52", "row1", "row2", "row3", "row4", "edgex", "diagonal4", "diagonal5", "diagonal6", "diagonal7", "diagonal8"];
+    let patternArrLen = [3 ** 9, 3 ** 10, 3 ** 8, 3 ** 8, 3 ** 8, 3 ** 8, 3 ** 10, 3 ** 4, 3 ** 5, 3 ** 6, 3 ** 7, 3 ** 8];
+    for (let patternI = 0; patternI < patternNames.length; patternI++) {
+        for (let i = 0; i < patternArrLen[patternI]; i++) {
+            let index = [];
+            for (let j = 0; j < 60; j++) {
+                if (arr[j][patternNames[patternI]][i] || arr[j][patternNames[patternI]][i] === 0) index.push(j);
+            }
+            if (index.length == 0) continue;
+            if (!index.includes(0)) {
+                arr[0][patternNames[patternI]][i] = arr[index[0]][patternNames[patternI]][i];
+                index.unshift(0);
+            }
+            if (!index.includes(59)) {
+                arr[59][patternNames[patternI]][i] = arr[index[index.length - 1]][patternNames[patternI]][59];
+                index.push(59);
+            }
+            for (let j = 1; j < 59; j++) {
+                if (!index.includes(j)) {
+                    let jIndex = [...index, j].sort((a, b) => a - b).indexOf(j);
+                    arr[j][patternNames[patternI]][i] = (arr[index[jIndex - 1]][patternNames[patternI]][i] * (index[jIndex] - j)
+                        + arr[index[jIndex]][patternNames[patternI]][i] * (j - index[jIndex - 1])) / (index[jIndex] -
+                            index[jIndex - 1]);
+                }
+            }
+        }
+    }
+    return arr;
 }
 function getRandomData(num) {
 
