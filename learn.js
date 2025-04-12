@@ -34,7 +34,7 @@ function validMovesArr() {
         for (let n = 0; n <= 7; n++) {
             let placeResult = placeDisc(board, m, n, playerColor);
             if (placeResult.isValid) {
-                situations.push(m * 8 + n)
+                situations.push(LETTERS[n] + (m + 1));
             }
         }
     }
@@ -361,7 +361,7 @@ function getTable() {
     }
     return arr;
 }
-function interpolate() {
+function interpolate() {//replaces "getTable"
     let arr = JSON.parse(JSON.stringify(patternTable));
     for (let i of arr) {
         for (let j in i) {
@@ -404,5 +404,30 @@ function interpolate() {
     return arr;
 }
 function getRandomData(num) {
-
+    let randomData = []
+    for (let j = 0; j < num; j++) {
+        board = [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, -1, 1, 0, 0, 0],
+            [0, 0, 0, 1, -1, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+        ]
+        playerColor = 1;
+        let moves = [];
+        for (let i = 0; i < 64; i++) {
+            let validMoves = validMovesArr();
+            if (!validMoves.length) break;
+            moves.push(validMoves[Math.floor(validMoves.length * Math.random())]);
+            pd(moves[moves.length - 1]);
+        }
+        randomData.push({
+            moves: moves,
+            type: 1
+        })
+    }
+    return randomData;
 }
