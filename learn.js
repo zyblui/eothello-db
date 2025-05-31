@@ -347,7 +347,7 @@ function setPatternEval(moveNumber, type, patternNumber, evaluation) {
     }
 }
 function getTable() {
-    let arr = JSON.parse(JSON.stringify(patternTable))
+    let arr = JSON.parse(JSON.stringify(patterns))
     for (let i of arr) {
         for (let j in i) {
             for (let k = 0; k < i[j].length; k++) {
@@ -362,7 +362,7 @@ function getTable() {
     return arr;
 }
 function interpolate() {//replaces "getTable"
-    let arr = JSON.parse(JSON.stringify(patternTable));
+    let arr = JSON.parse(JSON.stringify(patterns));
     for (let i of arr) {
         for (let j in i) {
             for (let k = 0; k < i[j].length; k++) {
@@ -430,4 +430,54 @@ function getRandomData(num) {
         })
     }
     return randomData;
+}
+function removeInvalidGames(arr) {
+    let resultArr = []
+    for (let i = 0; i < arr.length; i++) {
+        board = [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, -1, 1, 0, 0, 0],
+            [0, 0, 0, 1, -1, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+        ]
+        playerColor = 1;
+        for (let j of arr[i].moves) {
+            if (j == "--") {
+                playerColor = -playerColor
+            } else {
+                pd(j);
+            }
+            if (!validMovesArr().length) {
+                resultArr.push(arr[i])
+            }
+        }
+    }
+    return resultArr;
+}
+function flow(type) {
+    console.log("selectType")
+    for (let i = 0; i < data.length; i++) { if (data[i].type != type) { data.splice(i, 1); i-- } }
+    console.log("removeInvalidGames")
+    data = removeInvalidGames(data);
+    data=data.slice(0,100000)
+    console.log("learn")
+    learn();
+    console.log("interpolate")
+    let arr = interpolate();
+    console.log("toFixed")
+    for (let i = 0; i < arr.length; i++) {
+        for (let j in arr[i]) {
+            for (let k = 0; k < arr[i][j].length; k++) {
+                if (arr[i][j][k]) arr[i][j][k] = Number(Number(arr[i][j][k]).toFixed(3));
+                else arr[i][j][k] = 0;
+            }
+        }
+    }
+    console.log("str")
+    let str=JSON.stringify(arr).replace(/,0,/g,",,").replace(/,0,/g,",,").replace(/,0,/g,",,")
+    return str;
 }
