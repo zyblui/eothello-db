@@ -836,10 +836,10 @@ function removeInvalidGames(arr) {
 function flow(type) {
     console.log("selectType")
     for (let i = 0; i < data.length; i++) { if (data[i].type != type) { data.splice(i, 1); i-- } }
-    console.log("removeInvalidGames")
+/*    console.log("removeInvalidGames")
     data = removeInvalidGames(data);
     data = data.slice(0, 100000)
-    console.log("learn")
+*/    console.log("learn")
     learn();
     console.log("interpolate")
     let arr = interpolate();

@@ -1,6 +1,6 @@
 let data = [];
 let regex = /server_game\.initializeServerGame\([\S\s]*?\)/;
-let pagesFetched = 0
+let pagesFetched = 0;
 function get(initialVal, num) {
     pagesFetched++;
     let myRequest = new Request("https://www.eothello.com/game/" + initialVal);
@@ -14,18 +14,18 @@ function get(initialVal, num) {
                     players: getPlayerNames(response),
                     scores: getPlayerScores(response),
                     moves: getMoves(response)
-                })
+                });
             }
         }).then((r) => {
             if (num == 1) return;
-            get(initialVal - 1, num - 1);
+            get(initialVal + 1, num - 1);
         });
 }
 function multiGet(initialVal, num) {
     pagesFetched = 0;
     num /= 10;
     for (let i = 0; i < 10; i++) {
-        get(initialVal - i * num, num);
+        get(initialVal + i * num, num);
     }
 }
 function isValidGame(str) {
@@ -57,4 +57,30 @@ function getNo(str) {
     let result = str.match(/server_game\.initializeServerGame\([\s\S]*?,/g);
     result[0] = result[0].replace("server_game.initializeServerGame(", "").replace(",", "").trim();
     return Number(result[0]);
+}
+function generateLink() {
+    let a = document.createElement("a");
+    let blo = new Blob(["data=" + JSON.stringify(data)], {
+        type: "application/json"
+    });
+    let bloURL = URL.createObjectURL(blo);
+    a.href = bloURL;
+    a.innerText = "click";
+    a.download = "download";
+    document.appendChild(a);
+}
+function sortData() {
+    data.sort(function (a, b) { return a.no - b.no + (b.moves.length - a.moves.length) * 0.001; });
+}
+function merge(additionalData) {
+    data.push(...additionalData);
+    sortData();
+    target = data.length - 1;
+    for (let i = 0; i < target; i++) {
+        if (data[i].no == data[i + 1].no) {
+            data.splice(i + 1, 1);
+            i--;
+            target--;
+        }
+    }
 }
