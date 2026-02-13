@@ -67,7 +67,7 @@ function generateLink() {
     a.href = bloURL;
     a.innerText = "click";
     a.download = "download";
-    document.appendChild(a);
+    document.querySelector("body").appendChild(a);
 }
 function sortData() {
     data.sort(function (a, b) { return a.no - b.no + (b.moves.length - a.moves.length) * 0.001; });
