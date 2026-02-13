@@ -1,0 +1,167 @@
+.grid {
+    width: calc(12.5% - 1px);
+    height: calc(12.5% - 1px);
+    border: solid 1px #333;
+    position: absolute;
+}
+
+.r1 {
+    top: 0;
+}
+
+.r2 {
+    top: 12.5%;
+}
+
+.r3 {
+    top: 25%;
+}
+
+.r4 {
+    top: 37.5%
+}
+
+.r5 {
+    top: 50%
+}
+
+.r6 {
+    top: 62.5%
+}
+
+.r7 {
+    top: 75%
+}
+
+.r8 {
+    top: 87.5%
+}
+
+.c1 {
+    left: 0
+}
+
+.c2 {
+    left: 12.5%;
+}
+
+.c3 {
+    left: 25%;
+}
+
+.c4 {
+    left: 37.5%;
+}
+
+.c5 {
+    left: 50%;
+}
+
+.c6 {
+    left: 62.5%;
+}
+
+.c7 {
+    left: 75%;
+}
+
+.c8 {
+    left: 87.5%;
+}
+
+.grid.black::before {
+    content: "";
+    display: block;
+    width: 90%;
+    height: 90%;
+    border-radius: 50%;
+    border: solid 2px #333;
+    background-color: black;
+    position: relative;
+    top: 5%;
+    left: 5%;
+    box-sizing: border-box;
+}
+
+.grid.white::before {
+    content: "";
+    display: block;
+    width: 90%;
+    height: 90%;
+    border-radius: 50%;
+    border: solid 2px #333;
+    background-color: white;
+    position: relative;
+    top: 5%;
+    left: 5%;
+    box-sizing: border-box;
+}
+
+.move::before {
+    content: "";
+    display: block;
+    width: 15%;
+    height: 15%;
+    border-radius: 50%;
+    background-color: #333;
+    position: relative;
+    top: 42.5%;
+    left: 42.5%;
+    box-sizing: border-box;
+}
+
+.last-move-mark::after {
+    content: "";
+    display: block;
+    width: 15%;
+    height: 15%;
+    border-radius: 50%;
+    background-color: red;
+    position: relative;
+    top: -42.5%;
+    left: 42.5%;
+}
+
+.dot {
+    width: 1.875%;
+    height: 1.875%;
+    border-radius: 50%;
+    background-color: black;
+    position: absolute;
+}
+
+.dot-top {
+    top: 24.0625%;
+}
+
+.dot-bottom {
+    bottom: 24.0625%;
+}
+
+.dot-left {
+    left: 24.0625%;
+}
+
+.dot-right {
+    right: 24.0625%;
+}
+
+.inner-container {
+    width: 500px;
+    height: 500px;
+    display: inline-block;
+    position: relative;
+
+    .anti-board & {
+        background-color: #256EA2;
+    }
+
+    .othello-board & {
+        background-color: #248A67;
+    }
+
+    .small & {
+        width: 200px;
+        height:200px
+    }
+}
