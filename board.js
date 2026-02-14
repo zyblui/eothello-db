@@ -2,13 +2,13 @@
 const DIRECTIONS = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
 const LETTERS = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
-document.querySelectorAll(".board").forEach(function(e){
+document.querySelectorAll(".board").forEach(function (e) {
     fillBoard(e);
 });
 
 function fillBoard(e) {
-    if(e.filled)return;
-    e.filled=true;
+    if (e.filled) return;
+    e.filled = true;
     let innerContainer = document.createElement("div");
     innerContainer.classList.add("inner-container");
     innerContainer.innerHTML = `
@@ -28,50 +28,35 @@ function fillBoard(e) {
     innerContainer.querySelector(".grid.r5.c5").classList.add("white");
     e.appendChild(innerContainer);
     e.innerHTML += `
-    <div>
-        <div class="player-name">Black</div>
-        <div class="score black-score">2</div>
-    </div>
-    <div>
-        <div class="player-name">White</div>
-        <div class="score white-score">2</div>
-    </div>
     <div class="toggle">
         <label>
             <input type="radio" checked="checked" name="sideToMove" class="side-to-move-black" />
-            <div>Black</div>
-        </label>
-        <label>
-            <input type="radio" name="sideToMove" class="side-to-move-white" />
-            <div>White</div>
+            <div class="score black-score"><div class="black-player"></div><div class="black-elo"></div><div class="score-inner">2</div></div></label><label><input type="radio" name="sideToMove" class="side-to-move-white" /><div
+                class="score white-score"><div class="white-player"></div><div class="white-elo"></div><div class="score-inner">2</div></div>
         </label>
     </div>
-    to move
-    <button class="to-start-position">&lt;&lt;</button>
-    <button class="previous-move">&lt;</button>
-    <button class="next-move">&gt;</button>
-    <button class="last-move">&gt;&gt;</button>
-    <button class="setup-button">Setup Board</button>
-    <button class="setup-clear">Clear</button>
-    <button class="delete-move-button" class="menuButton menuButtonRed">Delete Move</button>
-    <div>
-        <div class="toggle"><label>
-                <input type="radio" checked="checked" class="setup-black" name="discType" />
-                <div>Black</div>
-            </label>
-            <label>
-                <input type="radio" class="setup-white" name="discType" />
-                <div>White</div>
-            </label>
-            <label>
-                <input type="radio" class="setup-erase" name="discType" />
-                <div>Erase Disc</div>
-            </label>
-        </div>
+    <div class="nav line">
+        <button class="to-start-position"></button><button class="previous-move"></button><button class="next-move"></button><button
+            class="last-move"></button>
+    </div>
+    <div class="board-operation line">
+        <button class="setup-button"></button><button class="setup-clear"></button><button
+            class="delete-move-button" class="menuButton menuButtonRed"></button>
+    </div>
+    <div class="disc-type line">
+        <label>
+            <input type="radio" checked="checked" class="setup-black" name="discType" />
+            <button class="disc-type-black"></button></label><label><input type="radio" class="setup-white" name="discType" /><button
+                class="disc-type-white"></button></label><label><input type="radio" class="setup-erase" name="discType" /><button
+                class="disc-type-erase"></button>
+        </label>
     </div>
     <div class="notation"></div>
     `;
-
+    if (e.blackPlayer) e.querySelector(".black-player").innerText = e.blackPlayer;
+    if (e.blackElo) e.querySelector(".black-elo").innerText = e.blackElo;
+    if (e.whitePlayer) e.querySelector(".white-player").innerText = e.whitePlayer;
+    if (e.whiteElo) e.querySelector(".white-elo").innerText = e.whiteElo;
     e.board = [
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
@@ -102,28 +87,31 @@ function fillBoard(e) {
     e.setupMode = false;
     e.setupDisc = 1;
 
-    for (let i = 0; i <= 7; i++) {
-        for (let j = 0; j <= 7; j++) {
-            e.querySelector(".r" + (i + 1) + ".c" + (j + 1)).addEventListener("click", function () {
-                if (!e.setupMode) e.pd(LETTERS[j] + (i + 1));
-                else {
-                    e.board[i][j] = e.setupDisc;
-                    e.initialPosition = structuredClone(e.board);
-                    e.lastCoord = {
-                        x: 0,
-                        y: 0
-                    };
-                    e.previousMoves = [];
-                    e.navigationPosition = [-1, 1];
-                    e.render();
-                }
-            });
-        }
-    }
+    for (let i = 0; i <= 7; i++) for (let j = 0; j <= 7; j++) e.querySelector(".r" + (i + 1) + ".c" + (j + 1))
+        .addEventListener("click", function () {
+            if (!e.setupMode) e.pd(LETTERS[j] + (i + 1));
+            else {
+                e.board[i][j] = e.setupDisc;
+                e.initialPosition = structuredClone(e.board);
+                e.lastCoord = {
+                    x: 0,
+                    y: 0
+                };
+                e.previousMoves = [];
+                e.navigationPosition = [-1, 1];
+                e.render();
+            }
+        });
     e.querySelector(".setup-button").addEventListener("click", function () {
         e.setupMode = !e.setupMode;
-        if (e.setupMode) e.querySelector(".setup-button").classList.add("selected");
-        else e.querySelector(".setup-button").classList.remove("selected");
+        if (e.setupMode) {
+            e.querySelector(".setup-button").classList.add("selected");
+            e.querySelector(".disc-type").classList.add("show");
+        }
+        else {
+            e.querySelector(".setup-button").classList.remove("selected");
+            e.querySelector(".disc-type").classList.remove("show");
+        }
     });
     e.querySelector(".setup-black").addEventListener("click", function () {
         e.setupDisc = 1;
@@ -175,8 +163,8 @@ function fillBoard(e) {
             }
         }
         let discs = e.discCount(e.board);
-        e.querySelector(".black-score").innerText = discs.black;
-        e.querySelector(".white-score").innerText = discs.white;
+        e.querySelector(".black-score .score-inner").innerText = discs.black;
+        e.querySelector(".white-score .score-inner").innerText = discs.white;
         if (e.querySelector(".last-move-mark")) e.querySelector(".last-move-mark").classList.remove("last-move-mark");
         if (e.lastCoord.x != 0) e.querySelector(".r" + e.lastCoord.x + ".c" + e.lastCoord.y).classList.add("last-move-mark");
         e.querySelector(".notation").innerHTML = "";
@@ -208,7 +196,7 @@ function fillBoard(e) {
             e.querySelector(".side-to-move-white").checked = "checked";
             e.querySelector(".side-to-move-black").checked = "";
         }
-        if(e.onrender)e.onrender();
+        if (e.onrender) e.onrender();
     };
     e.navigate = function (moveNo, side/*0,1*/) {
         e.board = structuredClone(e.initialPosition);
@@ -245,7 +233,7 @@ function fillBoard(e) {
         else e.playerColor = -1;
         e.render();
     };
-    e.pd = function (coord) {
+    e.pd = function (coord, render = true) {
         let y = LETTERS.indexOf(coord[0]);
         let x = Number(coord[1]) - 1;
         let placeResult = e.placeDisc(e.board, x, y, e.playerColor);
@@ -270,7 +258,7 @@ function fillBoard(e) {
         e.navigationPosition = [e.previousMoves.length - 1, ((e.playerColor == 1) ? 0 : 1)];
         e.playerColor = -e.playerColor;
         if (!e.validMovesArr().length) e.playerColor = -e.playerColor;
-        e.render();
+        if (render) e.render();
     };
     e.validMovesArr = function () {
         let situations = [];

@@ -25,8 +25,15 @@ document.getElementById("inputBoard").onrender = function () {
         tempBoard.classList.add("board", "small");
         if (i.type == 0) tempBoard.classList.add("othello-board");
         else tempBoard.classList.add("anti-board");
+        tempBoard.blackPlayer = i.players[0];
+        tempBoard.whitePlayer = i.players[1];
+        tempBoard.blackElo = i.scores[0];
+        tempBoard.whiteElo = i.scores[1];
         document.getElementById("results").appendChild(tempBoard);
         fillBoard(tempBoard);
-        for (let j of i.moves) tempBoard.pd(j);
+        for (let j of i.moves) tempBoard.pd(j, false);
+        tempBoard.render();
     }
+
+    //document.getElementById("results").innerHTML = JSON.stringify(searchMoveList(getMoveList(document.getElementById("inputBoard").previousMoves)).slice(0, 100));
 };

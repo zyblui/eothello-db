@@ -69,6 +69,14 @@
     left: 87.5%;
 }
 
+.r1.c1 {
+    border-radius: 9px 0 0 0;
+}
+
+.r1.c8 {
+    border-radius: 0 9px 0 0;
+}
+
 .grid.black::before {
     content: "";
     display: block;
@@ -149,7 +157,6 @@
 .inner-container {
     width: 500px;
     height: 500px;
-    display: inline-block;
     position: relative;
 
     .anti-board & {
@@ -162,6 +169,232 @@
 
     .small & {
         width: 200px;
-        height:200px
+        height: 200px
+    }
+}
+
+.board {
+    display: inline-block;
+    width: 500px;
+    margin: 9px;
+    border-radius: 9px;
+    overflow: clip;
+    background-color: #eee;
+    vertical-align: top;
+
+    &.small {
+        width: 200px;
+    }
+}
+
+.notation {
+    counter-reset: moveNo;
+}
+
+.notation>span {
+    counter-increment: moveNo;
+    font-size: 16px;
+
+    &>span {
+        display: inline-block;
+        border-radius: 5px;
+        font-weight: 500;
+        padding: 5px;
+
+        &:hover {
+            background-color: #303134;
+            cursor: pointer;
+        }
+
+        &.navigationPosition {
+            background-color: #303134;
+
+            &:hover {
+                background-color: #35383C;
+            }
+        }
+    }
+}
+
+.notation>span::before {
+    content: counter(moveNo)". ";
+    color: #C1C2C5;
+    font-size: 14px;
+}
+
+body {
+    font-family: Inter, sans-serif;
+}
+
+.score {
+    width: 50%;
+    display: inline-block;
+    font-size: small;
+    padding: 0 9px;
+    box-sizing: border-box;
+    border: solid 3px transparent;
+
+    & .score-inner {
+        font-size: xx-large;
+        font-weight: bold;
+    }
+
+    &.black-score {
+        background-color: black;
+        color: white;
+    }
+
+    &.white-score {
+        background-color: white;
+        text-align: right;
+    }
+}
+
+.line {
+    width: 100%;
+
+    button {
+        border: none;
+        border-radius: 0;
+        font-size: medium;
+        font-family: Inter, sans-serif;
+        min-height: 32px;
+
+        &.setup-button.selected {
+            background-color: dodgerblue;
+            color: white;
+        }
+
+        &::before {
+            background-color: black;
+            width: 18px;
+            height: 18px;
+            content: "";
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        &:hover {
+            background-color: #ccc;
+            cursor: pointer;
+        }
+    }
+}
+
+.nav {
+    button {
+        width: 25%;
+
+        &.to-start-position::before {
+            clip-path: shape(from 50% 0, line to 0 50%, line to 50% 100%, line to 60% 90%, line to 20% 50%, line to 60% 10%,
+                    close, move to 90% 0, line to 40% 50%, line to 90% 100%, line to 100% 90%, line to 60% 50%, line to 100% 10%,
+                    close);
+        }
+
+        &.previous-move::before {
+            clip-path: shape(from 60% 0, line to 10% 50%, line to 60% 100%, line to 70% 90%, line to 30% 50%, line to 70% 10%,
+                    close);
+        }
+
+        &.next-move::before {
+            clip-path: shape(from 40% 0, line to 90% 50%, line to 40% 100%, line to 30% 90%, line to 70% 50%, line to 30% 10%,
+                    close);
+        }
+
+        &.last-move::before {
+            clip-path: shape(from 50% 0, line to 100% 50%, line to 50% 100%, line to 40% 90%, line to 80% 50%, line to 40% 10%,
+                    close, move to 10% 0, line to 60% 50%, line to 10% 100%, line to 0 90%, line to 40% 50%, line to 0 10%,
+                    close);
+        }
+    }
+}
+
+.board-operation {
+    button {
+        width: calc(100% / 3);
+
+        &.setup-button::before {
+            clip-path: shape(from 43% 0, line to 57% 0, line to 57% 70%, line to 87% 40%, line to 97% 50%, line to 50% 97%,
+                    line to 3% 50%, line to 13% 40%, line to 43% 70%, close);
+        }
+
+        .board:not(.small) &.setup-button::after {
+            content: "Setup"
+        }
+
+        &.setup-clear::before {
+            clip-path: shape(from 10% 0, line to 100% 90%, line to 90% 100%, line to 0 10%, close, move to 90% 0,
+                    line to 100% 10%, line to 10% 100%, line to 0 90%, close);
+        }
+
+        .board:not(.small) &.setup-clear::after {
+            content: "Clear";
+        }
+
+        &.delete-move-button::before {
+            clip-path: shape(from 100% 43%, line to 100% 57%, line to 30% 57%, line to 60% 87%, line to 50% 97%, line to 3% 50%,
+                    line to 50% 3%, line to 60% 13%, line to 30% 43%, close);
+        }
+
+        .board:not(.small) &.delete-move-button::after {
+            content: "Del Move"
+        }
+    }
+
+}
+
+.disc-type {
+    display: none;
+
+    &.show {
+        display: block;
+    }
+
+    button {
+        width: calc(100% / 3);
+
+        &.disc-type-black::before {
+            clip-path: circle(50% at 50% 50%);
+        }
+
+        .board:not(.small) &.disc-type-black::after {
+            content: "Black"
+        }
+
+        &.disc-type-white::before {
+            clip-path: shape(from 50% 0, arc to 50% 100% of 50% cw, arc to 50% 0 of 50% cw, close, move to 50% 14%, arc to 50% 86% of 36% ccw,
+                    arc to 50% 14% of 36% ccw, close);
+        }
+
+        .board:not(.small) &.disc-type-white::after {
+            content: "White"
+        }
+
+        &.disc-type-erase::before {
+            clip-path: shape(from 60% 5%, line to 100% 45%, line to 50% 95%, line to 30% 95%, line to 0 65%, close,
+                    move to 60% 25%, line to 40% 45%, line to 60% 65%, line to 80% 45%, close);
+        }
+
+        .board:not(.small) &.disc-type-erase::after {
+            content: "Erase"
+        }
+    }
+}
+
+.board:not(.small) .board-operation button::after,
+.board:not(.small) .disc-type button::after {
+    margin-left: 9px;
+}
+
+input[type="radio"] {
+    display: none;
+
+    &:checked+.score {
+        border: solid 3px dodgerblue;
+    }
+
+    .disc-type &:checked+button {
+        background-color: dodgerblue;
+        color: white;
     }
 }
