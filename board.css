@@ -199,19 +199,15 @@
         display: inline-block;
         border-radius: 5px;
         font-weight: 500;
-        padding: 5px;
-
+        padding: 3px;
+        border: solid 2px transparent;
         &:hover {
-            background-color: #303134;
+            background-color: #ccc;
             cursor: pointer;
         }
 
-        &.navigationPosition {
-            background-color: #303134;
-
-            &:hover {
-                background-color: #35383C;
-            }
+        &.navigation-position {
+            border:solid 2px dodgerblue
         }
     }
 }
@@ -253,8 +249,11 @@ body {
 .line {
     width: 100%;
 
-    button {
+    button,
+    div {
         border: none;
+        display: inline-block;
+        text-align: center;
         border-radius: 0;
         font-size: medium;
         font-family: Inter, sans-serif;
@@ -350,8 +349,14 @@ body {
         display: block;
     }
 
-    button {
+    div {
         width: calc(100% / 3);
+        line-height: 32px;
+
+        &::before,
+        &::after {
+            vertical-align: middle;
+        }
 
         &.disc-type-black::before {
             clip-path: circle(50% at 50% 50%);
@@ -382,7 +387,7 @@ body {
 }
 
 .board:not(.small) .board-operation button::after,
-.board:not(.small) .disc-type button::after {
+.board:not(.small) .disc-type div::after {
     margin-left: 9px;
 }
 
@@ -393,7 +398,7 @@ input[type="radio"] {
         border: solid 3px dodgerblue;
     }
 
-    .disc-type &:checked+button {
+    .disc-type &:checked+div {
         background-color: dodgerblue;
         color: white;
     }

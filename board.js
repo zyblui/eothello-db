@@ -1,13 +1,13 @@
 
 const DIRECTIONS = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
 const LETTERS = ["a", "b", "c", "d", "e", "f", "g", "h"];
-
+let counter = 0n;
 document.querySelectorAll(".board").forEach(function (e) {
     fillBoard(e);
 });
-
 function fillBoard(e) {
     if (e.filled) return;
+    counter++;
     e.filled = true;
     let innerContainer = document.createElement("div");
     innerContainer.classList.add("inner-container");
@@ -30,8 +30,8 @@ function fillBoard(e) {
     e.innerHTML += `
     <div class="toggle">
         <label>
-            <input type="radio" checked="checked" name="sideToMove" class="side-to-move-black" />
-            <div class="score black-score"><div class="black-player"></div><div class="black-elo"></div><div class="score-inner">2</div></div></label><label><input type="radio" name="sideToMove" class="side-to-move-white" /><div
+            <input type="radio" checked="checked" name="sideToMove${counter}" class="side-to-move-black" />
+            <div class="score black-score"><div class="black-player"></div><div class="black-elo"></div><div class="score-inner">2</div></div></label><label><input type="radio" name="sideToMove${counter}" class="side-to-move-white" /><div
                 class="score white-score"><div class="white-player"></div><div class="white-elo"></div><div class="score-inner">2</div></div>
         </label>
     </div>
@@ -45,10 +45,10 @@ function fillBoard(e) {
     </div>
     <div class="disc-type line">
         <label>
-            <input type="radio" checked="checked" class="setup-black" name="discType" />
-            <button class="disc-type-black"></button></label><label><input type="radio" class="setup-white" name="discType" /><button
-                class="disc-type-white"></button></label><label><input type="radio" class="setup-erase" name="discType" /><button
-                class="disc-type-erase"></button>
+            <input type="radio" checked="checked" class="setup-black" name="discType${counter}" />
+            <div class="disc-type-black"></div></label><label><input type="radio" class="setup-white" name="discType${counter}" /><div
+                class="disc-type-white"></div></label><label><input type="radio" class="setup-erase" name="discType${counter}" /><div
+                class="disc-type-erase"></div>
         </label>
     </div>
     <div class="notation"></div>
@@ -189,13 +189,8 @@ function fillBoard(e) {
         if (e.querySelector(".navigation-position")) e.querySelector(".navigation-position").classList.remove("navigation-position");
         if (e.querySelector(".notation").children[e.navigationPosition[0]]) e.querySelector(".notation").children[e
             .navigationPosition[0]].children[e.navigationPosition[1]].classList.add("navigation-position");
-        if (e.playerColor == 1) {
-            e.querySelector(".side-to-move-black").checked = "checked";
-            e.querySelector(".side-to-move-white").checked = "";
-        } else {
-            e.querySelector(".side-to-move-white").checked = "checked";
-            e.querySelector(".side-to-move-black").checked = "";
-        }
+        if (e.playerColor == 1) e.querySelector(".side-to-move-black").checked = "checked";
+        else e.querySelector(".side-to-move-white").checked = "checked";
         if (e.onrender) e.onrender();
     };
     e.navigate = function (moveNo, side/*0,1*/) {
@@ -233,11 +228,18 @@ function fillBoard(e) {
         else e.playerColor = -1;
         e.render();
     };
-    e.pd = function (coord, render = true) {
+    e.pd = function (coord, renderAndCheck = true) {
         let y = LETTERS.indexOf(coord[0]);
         let x = Number(coord[1]) - 1;
         let placeResult = e.placeDisc(e.board, x, y, e.playerColor);
-        if (!placeResult.isValid) return;
+        if (!placeResult.isValid) {
+            if (!renderAndCheck) {
+                e.playerColor = -e.playerColor;
+                e.pd(coord, false);
+            }
+            return;
+
+        }
         e.lastCoord = {
             x: x + 1,
             y: y + 1
@@ -257,8 +259,8 @@ function fillBoard(e) {
         }
         e.navigationPosition = [e.previousMoves.length - 1, ((e.playerColor == 1) ? 0 : 1)];
         e.playerColor = -e.playerColor;
-        if (!e.validMovesArr().length) e.playerColor = -e.playerColor;
-        if (render) e.render();
+        if (renderAndCheck && !e.validMovesArr().length) e.playerColor = -e.playerColor;
+        if (renderAndCheck) e.render();
     };
     e.validMovesArr = function () {
         let situations = [];

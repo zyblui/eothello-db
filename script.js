@@ -9,7 +9,7 @@ function getMoveList(prevMoves) {
 function searchMoveList(moveList) {
     let matchedData = [];
     outerFor: for (let i of data) {
-        if (i.type != 1 && i.type != 0) continue;
+        if (i.type && i.type != 1) continue;
         for (let j = 0; j < moveList.length; j++) {
             if (moveList[j] != i.moves[j]) continue outerFor;
         }
@@ -18,20 +18,25 @@ function searchMoveList(moveList) {
     return matchedData;
 }
 document.getElementById("inputBoard").onrender = function () {
-    document.getElementById("results").innerHTML = "";
-    let results = searchMoveList(getMoveList(document.getElementById("inputBoard").previousMoves)).slice(0, 100);
+    let results = searchMoveList(getMoveList(document.getElementById("inputBoard").previousMoves));
+    document.getElementById("results").innerHTML = `
+    <p>${results.length} result(s) found</p>
+    `;
+    results = results.slice(0, 100);
     for (let i of results) {
         let tempBoard = document.createElement("div");
         tempBoard.classList.add("board", "small");
-        if (i.type == 0) tempBoard.classList.add("othello-board");
+        if (!i.type) tempBoard.classList.add("othello-board");
         else tempBoard.classList.add("anti-board");
         tempBoard.blackPlayer = i.players[0];
         tempBoard.whitePlayer = i.players[1];
-        tempBoard.blackElo = i.scores[0];
-        tempBoard.whiteElo = i.scores[1];
+        tempBoard.blackElo = i.elos[0];
+        tempBoard.whiteElo = i.elos[1];
         document.getElementById("results").appendChild(tempBoard);
         fillBoard(tempBoard);
-        for (let j of i.moves) tempBoard.pd(j, false);
+        for (let j of i.moves) {
+            tempBoard.pd(j, false);
+        }
         tempBoard.render();
     }
 

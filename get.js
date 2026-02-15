@@ -12,9 +12,12 @@ function get(initialVal, num) {
                     no: getNo(response),
                     type: getGameType(response),
                     players: getPlayerNames(response),
-                    scores: getPlayerScores(response),
-                    moves: getMoves(response)
+                    elos: getPlayerScores(response),
+                    moves: getMoves(response),
+                    status: getStatus(response)
                 });
+                if (data[data.length - 1].type == 0) data[data.length - 1].type = undefined;
+                if (data[data.length - 1].status == "") data[data.length - 1].status = undefined;
             }
         }).then((r) => {
             if (num == 1) return;
@@ -27,6 +30,17 @@ function multiGet(initialVal, num) {
     for (let i = 0; i < 10; i++) {
         get(initialVal + i * num, num);
     }
+}
+function multiGetIn(arr, initialVal) {
+    arr = arr.slice(arr.indexOf(initialVal), -1);
+    let interval = setInterval(function () {
+        if (arr.length == 0) {
+            clearInterval(interval);
+            return;
+        }
+        get(arr[0], 1);
+        arr.shift();
+    }, 100);
 }
 function isValidGame(str) {
     return /\[".*"\],/.exec(str) != null;
@@ -70,17 +84,36 @@ function generateLink() {
     document.querySelector("body").appendChild(a);
 }
 function sortData() {
-    data.sort(function (a, b) { return a.no - b.no + (b.moves.length - a.moves.length) * 0.001; });
+    data.sort(function (a, b) {//positive number ->b,a
+        if (a.no != b.no) return a.no - b.no;
+        else if (b.moves.length != a.moves.length) return b.moves.length - a.moves.length;
+        else if (b.status) return 1;
+        else if (a.status) return -1;
+        else return 0;
+    });
+}
+function getStatus(str) {
+    let result = str.replace(/[\s\S]*?<!DOCTYPE html[\s\S]*?server_game.initializeServerGame\([\s\S]*?\],[\s\S]*?,[\s\S]*?,[\s\S]*?,[\s\S]*?\"(.*?)"[\s\S]*?<\/html>[\s\S]*/, "$1");
+    if (result.indexOf("won") != -1) return "";
+    else return result;
 }
 function merge(additionalData) {
     data.push(...additionalData);
     sortData();
     target = data.length - 1;
     for (let i = 0; i < target; i++) {
+        if (data[i].type == 0) data[i].type = undefined;
         if (data[i].no == data[i + 1].no) {
             data.splice(i + 1, 1);
             i--;
             target--;
         }
     }
+}
+function getGamesToSearchNo() {
+    let arr = [];
+    for (let i of data) {
+        if (i.moves.length < 60) arr.push(i.no);
+    }
+    return arr;
 }
