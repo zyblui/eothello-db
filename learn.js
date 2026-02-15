@@ -149,11 +149,32 @@ let learnedPositions = 0;
 function learn() {
     learnedPositions = 0;
     for (let i of data) if (i.type == 1 || !i.type) {
+        let blackAdvantage = 0;
         for (let j of i.moves) {
             pd(j);
         }
-        let discs = discCount(board);
-        let blackAdvantage = 0;
+        let discs;
+        if (!i.status || i.status == "Draw") discs = discCount(board);
+        else if (i.status == "Black timed out" || i.status == "Black resigned") {
+            if (!i.type) discs = {
+                "black": 0,
+                "white": 64
+            };
+            else if (i.type == 1) discs = {
+                "black": 64,
+                "white": 0
+            };
+        }
+        else if (i.status == "White timed out" || i.status == "White resigned") {
+            if (!i.type) discs = {
+                "black": 64,
+                "white": 0
+            };
+            else if (i.type == 1) discs = {
+                "black": 0,
+                "white": 64
+            };
+        }
         if (discs.black != discs.white) {
             blackAdvantage = (64 - discs.black - discs.white + Math.abs(discs.black - discs.white)) * ((discs.black < discs.white) ? 1 : -1);
         }
@@ -838,7 +859,10 @@ function flow(type) {
     for (let i = 0; i < data.length; i++) {
         let tempType = 0;
         if (data[i].type) tempType = data[i].type;
-        if (tempType != type) data.splice(i, 1); i--;
+        if (tempType != type) {
+            data.splice(i, 1);
+            i--;
+        }
     }
 /*    console.log("removeInvalidGames")
     data = removeInvalidGames(data);

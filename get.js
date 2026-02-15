@@ -40,7 +40,7 @@ function multiGetIn(arr, initialVal) {
         }
         get(arr[0], 1);
         arr.shift();
-    }, 100);
+    }, 200);
 }
 function isValidGame(str) {
     return /\[".*"\],/.exec(str) != null;
@@ -103,6 +103,10 @@ function merge(additionalData) {
     target = data.length - 1;
     for (let i = 0; i < target; i++) {
         if (data[i].type == 0) data[i].type = undefined;
+        if (data[i].scores) {
+            data[i].elos = structuredClone(data[i].scores);
+            data[i].scores = undefined;
+        }
         if (data[i].no == data[i + 1].no) {
             data.splice(i + 1, 1);
             i--;
@@ -113,7 +117,7 @@ function merge(additionalData) {
 function getGamesToSearchNo() {
     let arr = [];
     for (let i of data) {
-        if (i.moves.length < 60) arr.push(i.no);
+        if (i.moves.length < 60&&!i.status) arr.push(i.no);
     }
     return arr;
 }
