@@ -6,7 +6,7 @@ The JavaScript file named `db.js` includes a large array `data`, in which each e
 ```javascript
 {
     "no": 2699489,
-    //no: # of the game, e.g. https://www.eothello.com/2699489
+    //no: # of the game, e.g. https://www.eothello.com/game/2699489
     "type": 3,
     //type: 1 = anti reversi, 2 = grand , 3 = octagon. Omitted when game type is standard.
     "players": ["scooby5463", "ssaarraa"],
