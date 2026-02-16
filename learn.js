@@ -154,8 +154,7 @@ function learn() {
             pd(j);
         }
         let discs;
-        if (!i.status || i.status == "Draw") discs = discCount(board);
-        else if (i.status == "Black timed out" || i.status == "Black resigned") {
+        /*if (i.status == "Black resigned") {
             if (!i.type) discs = {
                 "black": 0,
                 "white": 64
@@ -165,7 +164,7 @@ function learn() {
                 "white": 0
             };
         }
-        else if (i.status == "White timed out" || i.status == "White resigned") {
+        else if (i.status == "White resigned") {
             if (!i.type) discs = {
                 "black": 64,
                 "white": 0
@@ -175,6 +174,7 @@ function learn() {
                 "white": 64
             };
         }
+        else*/ discs = discCount(board);
         if (discs.black != discs.white) {
             blackAdvantage = (64 - discs.black - discs.white + Math.abs(discs.black - discs.white)) * ((discs.black < discs.white) ? 1 : -1);
         }

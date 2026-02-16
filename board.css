@@ -207,7 +207,7 @@
         }
 
         &.navigation-position {
-            border:solid 2px dodgerblue
+            border:solid 2px dodgerblue;
         }
     }
 }
