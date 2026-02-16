@@ -12,7 +12,7 @@ The JavaScript file named `db.js` includes a large array `data`, in which each e
     "players": ["scooby5463", "ssaarraa"],
     //players: [black player, white player]
     "elos": [1240, 1121],
-    //players: [elo rating of black, elo rating of black]
+    //players: [elo rating of black, elo rating of white]
     "moves": ["d5", "f4", "g5", "d6", "d7", "e7", "f7", "g7", "g6"],
     //moves: Only coords here; passes are not recorded
     "status": "White timed out"
