@@ -94,20 +94,21 @@ function sortData() {
 }
 function getStatus(str) {
     let result = str.replace(/[\s\S]*?<!DOCTYPE html[\s\S]*?server_game.initializeServerGame\([\s\S]*?\],[\s\S]*?,[\s\S]*?,[\s\S]*?,[\s\S]*?\"(.*?)"[\s\S]*?<\/html>[\s\S]*/, "$1");
-    if (result.indexOf("won") != -1) return "";
+    if (result.indexOf("won") != -1 || result == "Draw") return "";
     else return result;
 }
 function merge(additionalData) {
     data.push(...additionalData);
     sortData();
-    target = data.length - 1;
+    target = data.length;
     for (let i = 0; i < target; i++) {
         if (data[i].type == 0) data[i].type = undefined;
+        if (data[i].status == "Draw") data[i].status = undefined;
         if (data[i].scores) {
             data[i].elos = structuredClone(data[i].scores);
             data[i].scores = undefined;
         }
-        if (data[i].no == data[i + 1].no) {
+        if (i < target - 1 && data[i].no && data[i].no == data[i + 1].no) {
             data.splice(i + 1, 1);
             i--;
             target--;
@@ -117,7 +118,7 @@ function merge(additionalData) {
 function getGamesToSearchNo() {
     let arr = [];
     for (let i of data) {
-        if (i.moves.length < 60&&!i.status) arr.push(i.no);
+        if (i.moves.length < 60 && (!i.status || i.status.indexOf("turn") != -1)) arr.push(i.no);
     }
     return arr;
 }

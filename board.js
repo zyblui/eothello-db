@@ -51,6 +51,9 @@ function fillBoard(e) {
                 class="disc-type-erase"></div>
         </label>
     </div>
+    <div class="show-notation line">
+        <button class="show-notation-button"></button>
+    </div>
     <div class="notation"></div>
     `;
     if (e.blackPlayer) e.querySelector(".black-player").innerText = e.blackPlayer;
@@ -149,6 +152,15 @@ function fillBoard(e) {
     e.querySelector(".side-to-move-white").addEventListener("click", function () {
         e.playerColor = -1;
         e.render();
+    });
+    e.querySelector(".show-notation-button").addEventListener("click", function () {
+        if (e.querySelector(".show-notation-button").classList.contains("selected")) {
+            e.querySelector(".show-notation-button").classList.remove("selected");
+            e.querySelector(".notation").classList.remove("show");
+        } else {
+            e.querySelector(".show-notation-button").classList.add("selected");
+            e.querySelector(".notation").classList.add("show");
+        }
     });
     e.render = function () {
         let validMoves = e.validMovesArr();

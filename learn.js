@@ -866,8 +866,9 @@ function flow(type) {
     }
 /*    console.log("removeInvalidGames")
     data = removeInvalidGames(data);
-    data = data.slice(0, 100000)
-*/    console.log("learn");
+    
+*/data = data.slice(0, 200000)
+    console.log("learn");
     learn();
     console.log("interpolate");
     let arr = interpolate();
