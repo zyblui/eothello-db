@@ -87,9 +87,20 @@ function sortData() {
     data.sort(function (a, b) {//positive number ->b,a
         if (a.no != b.no) return a.no - b.no;
         else if (b.moves.length != a.moves.length) return b.moves.length - a.moves.length;
-        else if (b.status) return 1;
+        else{
+            let aWeight=0,bWeight=0;
+            if(b.status){
+                if(b.status.indexOf("turn")!=-1) bWeight=-1;
+                else bWeight=1;
+            }
+            if(a.status){
+                if(a.status.indexOf("turn")!=-1) aWeight=-1;
+                else aWeight=1;
+            }
+            return bWeight-aWeight;
+        }/* if (b.status&&!a.status) return 1;
         else if (a.status) return -1;
-        else return 0;
+        else return 0;*/
     });
 }
 function getStatus(str) {
@@ -118,7 +129,7 @@ function merge(additionalData) {
 function getGamesToSearchNo() {
     let arr = [];
     for (let i of data) {
-        if (i.moves.length < 60 && (!i.status || i.status.indexOf("turn") != -1)) arr.push(i.no);
+        if (/*i.moves.length < 60 &&*/ i.status&&i.status.indexOf("turn") != -1) arr.push(i.no);
     }
     return arr;
 }
