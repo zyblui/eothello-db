@@ -133,3 +133,6 @@ function getGamesToSearchNo() {
     }
     return arr;
 }
+function split(number){
+
+}
