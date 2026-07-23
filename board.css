@@ -1,3 +1,106 @@
+.board-grand {
+    .grid {
+        width: calc(10% - 1px);
+        height: calc(10% - 1px);
+    }
+
+    .r1 {
+        top: 0;
+    }
+
+    .r2 {
+        top: 10%;
+    }
+
+    .r3 {
+        top: 20%;
+    }
+
+    .r4 {
+        top: 30%
+    }
+
+    .r5 {
+        top: 40%
+    }
+
+    .r6 {
+        top: 50%
+    }
+
+    .r7 {
+        top: 60%
+    }
+
+    .r8 {
+        top: 70%
+    }
+
+    .r9 {
+        top: 80%
+    }
+
+    .r10 {
+        top: 90%
+    }
+
+    .c1 {
+        left: 0;
+    }
+
+    .c2 {
+        left: 10%;
+    }
+
+    .c3 {
+        left: 20%;
+    }
+
+    .c4 {
+        left: 30%
+    }
+
+    .c5 {
+        left: 40%
+    }
+
+    .c6 {
+        left: 50%
+    }
+
+    .c7 {
+        left: 60%
+    }
+
+    .c8 {
+        left: 70%
+    }
+
+    .c9 {
+        left: 80%
+    }
+
+    .c10 {
+        left: 90%
+    }
+
+    .dot-top {
+        top: 19.0625%;
+    }
+
+    .dot-bottom {
+        bottom: 19.0625%;
+    }
+
+    .dot-left {
+        left: 19.0625%;
+    }
+
+    .dot-right {
+        right: 19.0625%;
+    }
+}
+
 .grid {
     width: calc(12.5% - 1px);
     height: calc(12.5% - 1px);
@@ -193,7 +296,8 @@
     &:not(:empty) {
         padding: 3px 9px;
     }
-    .board.small &:not(.show){
+
+    .board.small &:not(.show) {
         display: none;
     }
 }
@@ -421,7 +525,7 @@ body {
     margin-left: 9px;
 }
 
-input[type="radio"] {
+.board input[type="radio"] {
     display: none;
 
     &:checked+.score {

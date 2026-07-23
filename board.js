@@ -1,14 +1,39 @@
-
 const DIRECTIONS = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
-const LETTERS = ["a", "b", "c", "d", "e", "f", "g", "h"];
+const LETTERS = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
+const STANDARD_INIT_POSITION = [
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, -1, 1, 0, 0, 0],
+    [0, 0, 0, 1, -1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0]
+];
+const GRAND_INIT_POSITION = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, -1, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, -1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+];
 let counter = 0n;
-document.querySelectorAll(".board").forEach(function (e) {
-    fillBoard(e);
+document.querySelectorAll(".board-standard").forEach(function (e) {
+    fillBoard(e, false);
 });
-function fillBoard(e) {
+document.querySelectorAll(".board-grand").forEach(function (e) {
+    fillBoard(e, true);
+});
+function fillBoard(e, isGrand) {
     if (e.filled) return;
     counter++;
     e.filled = true;
+    e.boardSize = ((isGrand) ? 10 : 8);
     let innerContainer = document.createElement("div");
     innerContainer.classList.add("inner-container");
     innerContainer.innerHTML = `
@@ -17,7 +42,7 @@ function fillBoard(e) {
     <div class="dot dot-bottom dot-right"></div>
     <div class="dot dot-bottom dot-left"></div>
     `;
-    for (let i = 0; i < 8; i++) for (let j = 0; j < 8; j++) {
+    for (let i = 0; i < e.boardSize; i++) for (let j = 0; j < e.boardSize; j++) {
         let div = document.createElement("div");
         div.classList.add("grid", `r${i + 1}`, `c${j + 1}`);
         innerContainer.appendChild(div);
@@ -60,26 +85,8 @@ function fillBoard(e) {
     if (e.blackElo) e.querySelector(".black-elo").innerText = e.blackElo;
     if (e.whitePlayer) e.querySelector(".white-player").innerText = e.whitePlayer;
     if (e.whiteElo) e.querySelector(".white-elo").innerText = e.whiteElo;
-    e.board = [
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, -1, 1, 0, 0, 0],
-        [0, 0, 0, 1, -1, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0]
-    ];//1 for black, -1 for white
-    e.initialPosition = [
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, -1, 1, 0, 0, 0],
-        [0, 0, 0, 1, -1, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0]
-    ];
+    e.board = structuredClone((isGrand) ? GRAND_INIT_POSITION : STANDARD_INIT_POSITION);
+    e.initialPosition = structuredClone(e.board);
     e.previousMoves = [];
     e.navigationPosition = [0, 0];
     e.playerColor = 1;
@@ -90,7 +97,8 @@ function fillBoard(e) {
     e.setupMode = false;
     e.setupDisc = 1;
 
-    for (let i = 0; i <= 7; i++) for (let j = 0; j <= 7; j++) e.querySelector(".r" + (i + 1) + ".c" + (j + 1))
+    for (let i = 0; i < e.boardSize; i++) for (let j = 0; j < e.boardSize; j++) e.querySelector(".r" + (i + 1) + ".c" +
+        (j + 1))
         .addEventListener("click", function () {
             if (!e.setupMode) e.pd(LETTERS[j] + (i + 1));
             else {
@@ -126,16 +134,7 @@ function fillBoard(e) {
         e.setupDisc = 0;
     });
     e.querySelector(".setup-clear").addEventListener("click", function () {
-        e.board = [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, -1, 1, 0, 0, 0],
-            [0, 0, 0, 1, -1, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0]
-        ];
+        e.board = structuredClone((isGrand) ? GRAND_INIT_POSITION : STANDARD_INIT_POSITION);
         e.initialPosition = structuredClone(e.board);
         e.lastCoord = {
             x: 0,
@@ -164,13 +163,13 @@ function fillBoard(e) {
     });
     e.render = function () {
         let validMoves = e.validMovesArr();
-        for (let i = 0; i <= 7; i++) for (let j = 0; j <= 7; j++) {
+        for (let i = 0; i < e.boardSize; i++) for (let j = 0; j < e.boardSize; j++) {
             e.querySelector(".r" + (i + 1) + ".c" + (j + 1)).classList.remove("black", "white", "move");
             if (e.board[i][j] == 1) {
                 e.querySelector(".r" + (i + 1) + ".c" + (j + 1)).classList.add("black");
             } else if (e.board[i][j] == -1) {
                 e.querySelector(".r" + (i + 1) + ".c" + (j + 1)).classList.add("white");
-            } else if (validMoves.includes(i * 8 + j)) {
+            } else if (validMoves.includes(i * e.boardSize + j)) {
                 e.querySelector(".r" + (i + 1) + ".c" + (j + 1)).classList.add("move");
             }
         }
@@ -215,17 +214,17 @@ function fillBoard(e) {
         } else {
             for (let i = 0; i < moveNo; i++) {
                 if (e.previousMoves[i][0] && e.previousMoves[i][0] != "--") e.board = e.placeDisc(e.board, Number(e
-                    .previousMoves[i][0][1]) - 1, LETTERS.indexOf(e.previousMoves[i][0][0]), 1).board;
+                    .previousMoves[i][0].slice(1)) - 1, LETTERS.indexOf(e.previousMoves[i][0][0]), 1).board;
                 if (e.previousMoves[i][1] && e.previousMoves[i][1] != "--") e.board = e.placeDisc(e.board, Number(e
-                    .previousMoves[i][1][1]) - 1, LETTERS.indexOf(e.previousMoves[i][1][0]), -1).board;
+                    .previousMoves[i][1].slice(1)) - 1, LETTERS.indexOf(e.previousMoves[i][1][0]), -1).board;
             }
             if (e.previousMoves[moveNo][0] && e.previousMoves[moveNo][0] != "--") e.board = e.placeDisc(e.board, Number(e
-                .previousMoves[moveNo][0][1]) - 1, LETTERS.indexOf(e.previousMoves[moveNo][0][0]), 1).board;
+                .previousMoves[moveNo][0].slice(1)) - 1, LETTERS.indexOf(e.previousMoves[moveNo][0][0]), 1).board;
             if (side == 1 && e.previousMoves[moveNo][1] && e.previousMoves[moveNo][1] != "--") e.board = e.placeDisc(e.board,
-                Number(e.previousMoves[moveNo][1][1]) - 1, LETTERS.indexOf(e.previousMoves[moveNo][1][0]), -1).board;
+                Number(e.previousMoves[moveNo][1].slice(1)) - 1, LETTERS.indexOf(e.previousMoves[moveNo][1][0]), -1).board;
             if (e.previousMoves[moveNo][side] != "--") {
                 e.lastCoord = {
-                    x: Number(e.previousMoves[moveNo][side][1]),
+                    x: Number(e.previousMoves[moveNo][side].slice(1)),
                     y: LETTERS.indexOf(e.previousMoves[moveNo][side][0]) + 1
                 };
             } else {
@@ -242,7 +241,7 @@ function fillBoard(e) {
     };
     e.pd = function (coord, renderAndCheck = true) {
         let y = LETTERS.indexOf(coord[0]);
-        let x = Number(coord[1]) - 1;
+        let x = Number(coord.slice(1)) - 1;
         let placeResult = e.placeDisc(e.board, x, y, e.playerColor);
         if (!placeResult.isValid) {
             if (!renderAndCheck) {
@@ -273,12 +272,14 @@ function fillBoard(e) {
         e.playerColor = -e.playerColor;
         if (renderAndCheck && !e.validMovesArr().length) e.playerColor = -e.playerColor;
         if (renderAndCheck) e.render();
+        e.afterPlacingDisc();
     };
+    if (!e.afterPlacingDisc) e.afterPlacingDisc = function () { };
     e.validMovesArr = function () {
         let situations = [];
-        for (let m = 0; m <= 7; m++) for (let n = 0; n <= 7; n++) {
+        for (let m = 0; m < e.boardSize; m++) for (let n = 0; n < e.boardSize; n++) {
             let placeResult = e.placeDisc(e.board, m, n, e.playerColor);
-            if (placeResult.isValid) situations.push(m * 8 + n);
+            if (placeResult.isValid) situations.push(m * e.boardSize + n);
         }
         return situations;
     };
@@ -302,8 +303,8 @@ function fillBoard(e) {
         let flipCounter = 0;
         do {
             flipCounter++;
-            if (!(x + direction[0] * flipCounter >= 0 && x + direction[0] * flipCounter <= 7 && y + direction[1] * flipCounter >= 0 && y + direction[1] *
-                flipCounter <= 7) || !currentBoard[x + direction[0] * flipCounter][y + direction[1] * flipCounter]) return false;
+            if (!(x + direction[0] * flipCounter >= 0 && x + direction[0] * flipCounter < e.boardSize && y + direction[1] * flipCounter >= 0 && y + direction[1] *
+                flipCounter < e.boardSize) || !currentBoard[x + direction[0] * flipCounter][y + direction[1] * flipCounter]) return false;
         } while (currentBoard[x + direction[0] * flipCounter][y + direction[1] * flipCounter] == -color);
         flipCounter--;
         if (!flipCounter) return false;

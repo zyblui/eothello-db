@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand</title>
+    <link rel="stylesheet" href="board.css">
+</head>
+
+<body>
+    <div class="board board-grand othello-board" id="inputBoard"></div>
+    <div>Computer plays
+        <div class="toggle"><label><input type="radio" name="computerRole" id="computerRoleBlack" />
+                <div>Black</div>
+            </label>
+            <label><input type="radio" checked="checked" name="computerRole" id="computerRoleWhite" />
+                <div>White</div>
+            </label>
+            <label><input type="radio" name="computerRole" id="computerRoleNeither" />
+                <div>Neither</div>
+            </label>
+        </div>
+    </div>
+    <div id="nodesNumber"></div>
+    <div id="analysisContent"></div>
+    <script src="board.js"></script>
+    <script src="simptable-6585-grand.js"></script>
+    <script src="script-grand.js"></script>
+    <script src="w-grand.js"></script>
+</body>
+
+</html>
